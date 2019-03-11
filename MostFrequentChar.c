@@ -11,7 +11,7 @@
 
 #define MAX_LENGTH 100
 
-char count_frequency(char s[])
+int count_frequency(char s[])
 {
 	char most_frequent;
 	int i, j, freq_index;
@@ -40,9 +40,11 @@ char count_frequency(char s[])
 		if (char_freq[i] > char_freq[freq_index])
 			freq_index = i;
 	}
+	
+	if (char_freq[freq_index] == 1)
+		return -1;
 		
-	// add 'a' to our index to get the proper char value
-	return 'a' + freq_index;
+	return freq_index;
 }
 
 int main()
@@ -54,7 +56,10 @@ int main()
 		printf("If you wish to exit please type \"exit\"\n");
 		scanf("%s", user_string);
 		
-		printf("most frequent character is %c\n", count_frequency(user_string));
+		if (count_frequency(user_string) == -1)
+			printf("All characters in the string occur in the same frequency!\n");
+		else
+			printf("The most frequent character is %c\n", 'a' + count_frequency(user_string));
 	} while (strcmp(user_string, "exit") != 0);
 	
 	system("PAUSE");
